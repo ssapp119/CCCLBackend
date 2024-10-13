@@ -14,7 +14,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       builder =>
-                          builder.WithOrigins("https://carrollcountyservices.com","http://carrollcountyservices.com", "https://www.carrollcountyservices.com", "http://www.carrollcountyservices.com", "https://carrollcountychristmaslights.com", "http://carrollcountychristmaslights.com", "https://www.carrollcountychristmaslights.com", "http://www.carrollcountychristmaslights.com", "http://localhost:3001").AllowAnyHeader().AllowAnyMethod());             
+                          builder.WithOrigins("https://carrollcountyservices.com","http://carrollcountyservices.com", "https://www.carrollcountyservices.com", "http://www.carrollcountyservices.com", "https://carrollcountychristmaslights.com", "http://carrollcountychristmaslights.com", "https://www.carrollcountychristmaslights.com", "http://www.carrollcountychristmaslights.com", "http://localhost:3001", "http://localhost:3000").AllowAnyHeader().AllowAnyMethod());             
                       });
    /* options.AddPolicy(name: MyAllowSpecificOrigins,
          builder => builder.WithOrigins("https://carrollcountychristmaslights.com", "http://carrollcountychristmaslights.com", "https://www.carrollcountychristmaslights.com", "http://www.carrollcountychristmaslights.com").AllowAnyHeader().AllowAnyMethod());

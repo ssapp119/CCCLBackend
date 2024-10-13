@@ -9,6 +9,11 @@ namespace QandA.Data
 
         int PostScheduleJob(ScheduledJobModel model);
 
+        public int PostFacebookToken(FacebookModel model);
+        public int PostGoogleToken(GoogleModel model);
+        public AccountLookupModel GetAccount(string token);
+
+
 
     }
 }
