@@ -228,7 +228,7 @@ using (var connection = new SqlConnection(_connectionString))
 {
     connection.Open();
     var customer = connection.QueryFirstOrDefault<AccountLookupModel>(
-        @"select al.Email, al.Name, case when sj.PaymentID not in ('Cash', 'Check') Then sj.PaymentID ELSE 'Credit Card' END PaymentMethod, sj.OrderDate, sj.InstallDate, sj.RemovalDate 
+        @"select al.Email, al.Name, case when sj.PaymentID in ('Cash', 'Check') Then sj.PaymentID ELSE 'Credit Card' END PaymentMethod, sj.OrderDate, sj.InstallDate, sj.RemovalDate 
 from AccountLookup al WITH (NOLOCK)
 outer apply(
 select top(1) * from Customers cu WITH (NOLOCK) 
