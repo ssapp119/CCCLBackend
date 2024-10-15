@@ -16,7 +16,7 @@ namespace QandA.Controllers
             _dataRepository = dataRepository;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("Retrieve")]
         public AccountLookupModel RetrieveData(string token)
         {
