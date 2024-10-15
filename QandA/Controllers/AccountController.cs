@@ -18,10 +18,10 @@ namespace QandA.Controllers
 
         [HttpPost]
         [Route("Retrieve")]
-        public AccountLookupModel RetrieveData(string token)
+        public AccountLookupModel RetrieveData(AccountTokenModel model)
         {
 
-            var accountObj = _dataRepository.GetAccount(token);
+            var accountObj = _dataRepository.GetAccount(model);
 
             return accountObj;
         }

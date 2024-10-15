@@ -212,7 +212,7 @@ namespace QandA.Data
             }
         }
 
-        public AccountLookupModel GetAccount(string token)
+        public AccountLookupModel GetAccount(AccountTokenModel model)
         {
             
             //address = street.Replace("Avenue", "Ave");
@@ -236,7 +236,7 @@ WHERE LOWER(al.Email) = LOWER(cu.Email)
 ORDER BY cu.InsertedDate DESC
 ) c
 left outer join ScheduledJobs sj WITH (NOLOCK) on sj.CustomerID = c.CustomerID AND year(sj.OrderDate) = '2024'
-where al.AccessToken = @AccessToken", new { AccessToken = token }
+where al.AccessToken = @AccessToken", new { AccessToken = model.token }
         );
                 return customer;
 

@@ -11,7 +11,7 @@ namespace QandA.Data
 
         public int PostFacebookToken(FacebookModel model);
         public int PostGoogleToken(GoogleModel model);
-        public AccountLookupModel GetAccount(string token);
+        public AccountLookupModel GetAccount(AccountTokenModel model);
 
 
 
