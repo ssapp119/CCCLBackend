@@ -75,13 +75,7 @@ namespace QandA.Data
                        @"SELECT * FROM AccountLookup WITH (NOLOCK) where Email = @Email AND  TokenSource = @TokenSource", new { Email = model.email, TokenSource = "Google" }
                       );
 
-                if (newModel != null && newModel.accessToken != model.accessToken)
-                {
-                    connection.Execute(
-                       @"UPDATE AccountLookup SET AccessToken = @AccessToken WHERE Email = @Email AND  TokenSource = @TokenSource", new { AccessToken = model.accessToken, Email = model.email, TokenSource = "Google" }
-                      );
-                }
-
+ 
                /* var job = connection.QueryFirstOrDefault<int>(
                        @"SELECT AccountID FROM AccountLookup WITH (NOLOCK) where Email = @Email AND  TokenSource = @TokenSource", new { Email = model.email, TokenSource = "Google"}
                       );
