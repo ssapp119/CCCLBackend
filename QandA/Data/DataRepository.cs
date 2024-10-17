@@ -72,7 +72,7 @@ namespace QandA.Data
 
                  */
                 var newModel = connection.QueryFirstOrDefault<GoogleDatabaseModel>(
-                       @"SELECT * FROM AccountLookup WITH (NOLOCK) where Email = @Email AND  TokenSource = @TokenSource", new { Email = model.email, TokenSource = "Google" }
+                       @"SELECT * FROM AccountLookup WITH (NOLOCK) where Email = @Email AND AccessToken = @AccessToken AND  TokenSource = @TokenSource", new { Email = model.email, AccessToken = model.accessToken, TokenSource = "Google" }
                       );
 
  
@@ -120,7 +120,7 @@ namespace QandA.Data
 
                  */
                 var newModel = connection.QueryFirstOrDefault<FacebookDatabaseModel>(
-                       @"SELECT * FROM AccountLookup WITH (NOLOCK) where Email = @Email AND  TokenSource = @TokenSource", new { Email = model.email, TokenSource = "Facebook" }
+                       @"SELECT * FROM AccountLookup WITH (NOLOCK) where Email = @Email AND AccessToken = @AccessToken AND  TokenSource = @TokenSource", new { Email = model.email, AccessToken = model.accessToken, TokenSource = "Facebook" }
                       );
 
                 /* var job = connection.QueryFirstOrDefault<int>(
