@@ -32,6 +32,9 @@ builder.Services.AddCors(options =>
 //builder.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3001")));//Configuration["Frontend"])));
 var app = builder.Build();
 
+var loggerFactory = app.Services.GetService<ILoggerFactory>();
+loggerFactory.AddFile(builder.Configuration["Logging:LogFilePath"].ToString());
+
 app.UseCors(MyAllowSpecificOrigins);
 
 // Configure the HTTP request pipeline.

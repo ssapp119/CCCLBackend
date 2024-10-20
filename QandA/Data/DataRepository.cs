@@ -7,20 +7,28 @@ using Newtonsoft.Json;
 using Nancy.Json;
 using Newtonsoft.Json.Linq;
 using Azure.Core;
+using QandA.Controllers;
+using System.Reflection;
+using System.Net;
 
 namespace QandA.Data
 {
     public class DataRepository : IDataRepository
     {
         private readonly string _connectionString;
+        private readonly ILogger<DataRepository> _logger;
 
-        public DataRepository(IConfiguration configuration)
+
+        public DataRepository(IConfiguration configuration, ILogger<DataRepository> logger)
         {
             _connectionString = configuration["ConnectionStrings:DefaultConnection"];
+            _logger = logger;
         }
 
         public int PostCustomer(CustomerModel model)
         {
+            _logger.LogInformation("(PostCustomer):" + DateTime.Now + " accesstoken: " + model.name + " Payment: " + model.payment + " email: " + model.email + " Notification: "+ model.notification  + " Phone: "  + model.phone);
+
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -61,6 +69,8 @@ namespace QandA.Data
 
         public int PostGoogleToken(GoogleModel model)
         {
+            _logger.LogInformation("(PostGoogleToken):" + DateTime.Now + " accesstoken: " + model.accessToken + " name: " + model.name + " email: " + model.email);
+
             //ScheduledJobID, HouseID, CustomerID
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -109,6 +119,8 @@ namespace QandA.Data
 
         public int PostFacebookToken(FacebookModel model)
         {
+            _logger.LogInformation("(PostFacebookToken):" + DateTime.Now + " accesstoken: " + model.accessToken + " name: " + model.name + " email: " + model.email);
+
             //ScheduledJobID, HouseID, CustomerID
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -156,6 +168,8 @@ namespace QandA.Data
 
         public int PostScheduleJob(ScheduledJobModel model)
         {
+            _logger.LogInformation("(PostScheduleJob):" + DateTime.Now + " PaymentID: " + model.paymentID + "CustomerID: " +  model.customerID + "Paid: " +  model.paid + " HouseID: " + model.houseID);
+
             //ScheduledJobID, HouseID, CustomerID
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -201,17 +215,18 @@ namespace QandA.Data
 
         public AccountLookupModel GetAccount(AccountTokenModel model)
         {
-            
-            //address = street.Replace("Avenue", "Ave");
-/*
- * 	[AccountID] [int] IDENTITY(1,1) NOT NULL,
-[AccessToken] [varchar](1000) NOT NULL,
-[Email] [varchar](255) NULL,
-[Name] [varchar](255) NULL,
-[TokenSource] [varchar](255) NULL,
-[InsertedDate] [smalldatetime] NULL*/
+            _logger.LogInformation("(GETACCOUNT):" + DateTime.Now + "Getting account info for token: " + model.token);
 
-using (var connection = new SqlConnection(_connectionString))
+            //address = street.Replace("Avenue", "Ave");
+            /*
+             * 	[AccountID] [int] IDENTITY(1,1) NOT NULL,
+            [AccessToken] [varchar](1000) NOT NULL,
+            [Email] [varchar](255) NULL,
+            [Name] [varchar](255) NULL,
+            [TokenSource] [varchar](255) NULL,
+            [InsertedDate] [smalldatetime] NULL*/
+
+            using (var connection = new SqlConnection(_connectionString))
 {
     connection.Open();
     var customer = connection.QueryFirstOrDefault<AccountLookupModel>(
@@ -232,7 +247,9 @@ where al.AccessToken = @AccessToken", new { AccessToken = model.token }
 }
     public HouseModel GetHouse(string address)
 {
-long floors = 1;
+            _logger.LogInformation("(GETHOUSE):" + DateTime.Now + "Getting house info: " + address);
+
+            long floors = 1;
 long squareFootage = 0;
 string newAddress = address;
 //address = street.Replace("Avenue", "Ave");
